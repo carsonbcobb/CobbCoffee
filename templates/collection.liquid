@@ -1,18 +1,59 @@
-{% paginate collection.products by 2 %}
-  <h1>{{ collection.title }}</h1>
-  {% for product in collection.products %}
-    <div>
-      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-      {{ product.price | money }}
-      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
-      <a href="{{ product.url | within: collection }}">
-        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+
+
+<div class="collection--image desktop">
+ 
+    <img
+      src="{{ images['collection.png'] | img_url: 'master' }}"
+     
+    />
+</div>
+
+<div class="collection--image mobile">
+ 
+  <img
+    src="{{ images['collectionMobile.png'] | img_url: 'master' }}"
+   
+  />
+</div>
+<h1 class="collection-title">{{ collection.title }}</h1><div class="collection">
+{% for product in collection.products %}
+
+	<section >
+	<a href="{{ product.url | within: collection }}">
+	
+      
+      <div class="product__main grid-product">
+  
+        <div class="product__main--image grid-product--image">
+          <a href="{{ product.url }}">
+            <img
+              src="{{ product.featured_image | img_url: '250x250' }}"
+              alt="{{ product.featured_image.alt }}"
+            />
+        </div>
+  
+        <div class="product__main--content grid-product--content">
+  
+          <p class="title grid-product--title">{{ product.title }}</p>
+          {% for tag in product.tags %}
+  
+          <p class="subtitle grid-product--subtitle">{{ tag }}</p>
+          {% endfor %}
+  
+          <p class="price">{{ product.price | money }}</p>
+          
+        </div>
+      </div>
+      
+  
       </a>
-    </div>
-  {% else %}
-    <p>no matches</p>
-  {% endfor %}
-  {% if paginate.pages > 1 %}
-    {{ paginate | default_pagination }}
-  {% endif %}
-{% endpaginate %}
+      
+      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+    </a>
+    </section>
+	
+
+{% else %}
+<p>no matches</p>
+{% endfor %}
+</div>

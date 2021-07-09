@@ -1,13 +1,322 @@
 {% for product in collections.frontpage.products limit:4 %}
 <div>
-	<a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-	{{ product.price | money }}
-	{% unless product.available %}<br /><strong>sold out</strong>{% endunless %}
-	<a href="{{ product.url | within: collection }}">
-		<img
-			src="{{ product.featured_image.src | img_url: 'large' }}"
-			alt="{{ product.featured_image.alt | escape }}"
+	<section class="hero">
+		<div class="hero__container">
+			<h2 class="hero__header desktop">
+				Fresh Roasted. Fair Trade.<br />Organic. Delivered.
+			</h2>
+			<h2 class="hero__header mobile">
+				Fresh Roasted.<br />Fair Trade.<br />Organic.<br />Delivered.
+			</h2>
+			<p class="hero__text desktop">
+				From our single-origin roasts to our exotic blends, all of our<br />coffee
+				is handpicked, handbagged, and roasted specifically<br />for your order!
+			</p>
+
+			<p class="hero__text mobile">
+				From our single-origin roasts to our exotic blends, all of our coffee
+				is handpicked, handbagged, and roasted specifically for your order!
+			</p>
+		</div>
+	</section>
+	
+
+
+	<section class="about">
+		<div class="about__image">
+			<img
+				src="{{ images['about.png'] | img_url: 'master' }}"
+				alt="About Our Coffee"
+			/>
+		</div>
+
+		<div class="about__content">
+			<h2 class="about__content--header">
+				<span class="bold">About</span><br />Our Commitment
+			</h2>
+			<ul>
+				<li class="about__content--li">
+					<span class="bold">Freshness & Quality:</span> We are committed to
+					offering premium grade coffee that is sorted and roasted.
+				</li>
+				<li class="about__content--li">
+					<span class="bold">Safe & Natural:</span> Our coffee is 100% natural
+					and has been tested for safety.
+				</li>
+				<li class="about__content--li">
+					<span class="bold">Direct Trade:</span> We are committed to
+					direct-trade buying relationships with farmers ensuring they are being
+					paid a fair wage for their hard work.
+				</li>
+				<li class="about__content--li">
+					<span class="bold">Social Impact:</span> We are developing a
+					vocational training program called Imago Work for young adults with
+					intellectual and developmental disabilities. Our trainees are involved
+					in packaging and serving our coffee.
+				</li>
+				<li class="about__content--li">
+					<span class="bold">Freshness & Quality:</span> We are committed to
+					supporting sustainable and organic farming and producing technics.
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="bullets">
+		<div class="bullets__item">
+			<div class="item__image">
+				<img
+					src="{{
+						images['coffeeIcon.png']
+							| img_url: 'master'
+					}}"
+				/>
+			</div>
+			<h3 class="item__header">Roasted to Order</h3>
+			<p class="item__text">
+				You won't find coffee this fresh anywhere else! All of our whole bean
+				coffee is roasted to perfection on the day of shipment. All ground
+				coffee is roasted a day before shipment.
+			</p>
+		</div>
+
+		<div class="bullets__item">
+			<div class="item__image">
+				<img
+					src="{{
+						images['beanIcon.png']
+							| img_url: 'master'
+					}}"
+				/>
+			</div>
+			<h3 class="item__header">Ethically Sourced</h3>
+			<p class="item__text">
+				By partnering with farmers. we choose to support equality for coffee
+				farmers, sustainable business practices, and environmental
+				responsibility.
+			</p>
+		</div>
+
+		<div class="bullets__item">
+			<div class="item__image">
+				<img
+					src="{{
+						images['medalIcon.png']
+							| img_url: 'master'
+					}}"
+				/>
+			</div>
+			<h3 class="item__header">FDA Certified</h3>
+			<p class="item__text">
+				We strive to supply the highest quality coffee in the USA. All of our
+				coffee beans are roasted from our CA licensed, FDA registered facility.
+			</p>
+		</div>
+	</section>
+
+	<section class="product">
+		<h2 class="product__header"><span class='bold'>Popular</span> Products</h2>
+		{% for product in collections.featured-product.products %}
+		<div class="product__main">
+
+			<div class="product__main--image">
+				<a href="{{ product.url }}">
+					<img
+						src="{{ product.featured_image | img_url: '500x500' }}"
+						alt="{{ product.featured_image.alt }}"
+					/>
+			</div>
+
+			<div class="product__main--content">
+
+				<p class="title">{{ product.title }}</p>
+				{% for tag in product.tags %}
+
+				<p class="subtitle">{{ tag }}</p>
+				
+				{% endfor %}
+				<p class="price">{{ product.price | money }}</p>
+				<form method="post" action="/cart/add">
+					<input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+					<div class="column">
+						<label class="quantity" for="quantity">Quantity:</label>
+						<input class="input" min="1" type="number" id="quantity" name="quantity"  value="1"/>
+						<input type="submit" value="Add to cart" class="btn btn-product" />
+					</div>
+					
+				</form>
+			</div>
+		</div>
+		
+
+		</a>
+		{% endfor %}
+<div class="subproduct">
+	{% for product in collections.subFeature.products %}
+	<a href="{{ product.url }}">
+		<div class="subproduct__image">
+
+			<img
+			src="{{ product.featured_image | img_url: '300x300' }}"
+			alt="{{ product.featured_image.alt }}"
 		/>
+		</div>
+	
+		<p class="subproduct__title">{{ product.title }}</p>
+			{% for tag in product.tags %}
+
+			<p class="subproduct__subtitle">{{ tag }}</p>
+			
+			{% endfor %}
+			<p class="subproduct__price">{{ product.price | money }}</p>
+
 	</a>
+	{% endfor %}
+
 </div>
+
+	</section>
+
+	<section class="banner">
+		<div class="banner__image desktop">
+			<img
+				src="{{ images['banner.png'] | img_url: 'master' }}"
+				alt="Freshness & Quality"
+			/>
+		</div>
+		<div class="banner__image mobile">
+			<img
+				src="{{ images['bannerMobile.png'] | img_url: 'master' }}"
+				alt="Freshness & Quality"
+			/>
+		</div>
+	</section>
+
+	<section class="testimonials">
+		<h2 class="testimonials__header">
+			<span class="bold">What People Say</span> About Us
+		</h2>
+
+		<div class="slider-container">
+			<div class="slider">
+				<div class="slider--item">
+					<div class="slider--item-text">
+						<p class="quote">"</p>		
+					<p class="testimonial__text ">Take it from a coffee aficionado who has traveled the world in pursuit of the perfect cup. The Bali Blue is perfectly smooth with a clean, rich flavor. It’s by far the best I’ve had.</p>
+
+					<p class="quote quote-end">”</p>		
+					</div>
+			
+			<p class="testimonial__person">- Jeymi Crispin</p>
+			</div>
+
+			<div class="slider--item">
+				<div class="slider--item-text">
+					<p class="quote">"</p>		
+					<p class="testimonial__text ">Amazing coffee - you probably forgot what fresh roasted coffee is or maybe not even had it but it is remarkable compared to what you might be drinking.</p>
+
+				
+					<p class="quote quote-end">”</p>		
+				</div>
+		
+		<p class="testimonial__person">- Mike Raleigh</p>
+		</div>
+
+		<div class="slider--item">
+			<div class="slider--item-text">
+				<p class="quote">"</p>		
+				<p class="testimonial__text ">Absolutely BEST coffee! Can't say enough good things. Customer service for your orders is outstanding!</p>
+
+				<p class="quote quote-end">”</p>			
+			</div>
+	
+	<p class="testimonial__person">- Linda Brewster</p>
+	</div>
+
+	<div class="slider--item">
+		<div class="slider--item-text">
+			<p class="quote">"</p>		
+
+					<p class="testimonial__text ">Got a bag of the Mexican Chocolate the other day. My girlfriend made it as a pour over the next day. I thought she was making brownies. The smell was that strong. It’s insane. The tasting notes are extremely prominent. They must do some sort of alchemy. Highly recommend!
+
+			<p class="quote quote-end">”</p>			
+		</div>
+
+<p class="testimonial__person">- Matthew Lee</p>
+</div>
+
+<div class="slider--item">
+	<div class="slider--item-text">
+		<p class="quote">"</p>		
+		<p class="testimonial__text ">Are you looking for Amazing fresh roasted coffee? Look no more. They have a great selection. My fave is the Executive blend. The owner designs and builds his roaster. This is the real deal. You don't want to miss out.</p>
+
+		<p class="quote quote-end">”</p>			
+	</div>
+
+<p class="testimonial__person">- Isabella Hernandez</p>
+</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="guarantee">
+		<div class="guarantee__text">
+			<h2><span class="bold">Freshness</span> Guarantee</h2>
+			<p class="desktop">At Cobb Coffee, we strive to provide you with the highest-quality and<br/>freshest roasted coffee in the USA. All of our coffee beans are roasted to<br/>order in our CA licensed, FDA registered facility.</p>
+			<p class="mobile">At Cobb Coffee, we strive to provide you with the highest-quality and freshest roasted coffee in the USA. All of our coffee beans are roasted to order in our CA licensed, FDA registered facility.</p>
+
+		</div>
+	</section>
+
+	<section class="footer">
+		<div class="footer__bg">
+			<div class="footer__sections">
+				<div class="footer__section--one">
+					<div class="footer__image">
+						<img
+							src="{{ images['cobb.png'] | img_url: 'master' }}"
+							alt="Cobb Coffee Logo"
+						/>
+					</div>
+					<p>
+						Cobb Coffee is committed to serve the highest quality of<br />coffee
+						on the market. Our partners practice organic,<br />sustainable
+						farming that maximizes the quality of our beans<br />without
+						damaging the land and gives a superior artisanal<br />taste to our
+						coffee.
+					</p>
+					<div  class="copy">
+
+						<p class="desktop">©2021 cobb-coffee. All rights reserved.</p>
+
+					</div>
+				</div>
+
+				<div class="footer__section--two">
+					<h3><span class="bold">Contact</span> Us</h3>
+					<p>
+						We at Cobb Coffee know you had many <br />options to choose from, we
+						thank you for<br />choosing us.
+					</p>
+					<p>
+						If you have any questions, reach out to<br />our support team at the
+						email below:
+					</p>
+					<p>contact@cobb-coffee.com</p>
+					<div class="footer__image--trust">
+						<img
+							src="{{ images['trust.png'] | img_url: 'master' }}"
+							alt="Trust Badges"
+						/>
+					</div>
+					<p class="mobile">©2021 cobb-coffee. All rights reserved.</p>
+
+				</div>
+			</div>
+
+			
+		</div>
+	</section>
+</div>
+
 {% endfor %}

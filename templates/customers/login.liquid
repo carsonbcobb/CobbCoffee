@@ -1,28 +1,67 @@
 <!-- /templates/customers/login.liquid -->
 
-<h2>Login</h2>
-{% form 'customer_login' %}
+<div class="account-page">
+	<div class="account-page__img desktop">
+		<img src="{{ images['login.png'] | img_url: 'master' }}" />
+	</div>
 
-{{ form.errors | default_errors }}
+	<div class="account-page__img mobile">
+		<img src="{{ images['loginMobile.png'] | img_url: 'master' }}" />
+	</div>
 
-<label for="customer_email">Email Address</label>
-<input type="email" name="customer[email]" />
+	<div class="login-section">
+		<div class="login">
+			<h2>Login</h2>
+			{% form 'customer_login' %}
 
-<label for="customer_password">Password</label>
-<input type="password" name="customer[password]" />
+			{{ form.errors | default_errors }}
 
-<input type="submit" value="Sign In" />
+			<label for="customer_email">Email Address</label>
+			<input type="email" name="customer[email]" />
 
-{% endform %}
+			<label for="customer_password">Password</label>
+			<input type="password" name="customer[password]" />
 
-<h2>Forgot Password</h2>
-{% form 'recover_customer_password' %}
+			<input type="submit" value="Sign In" class="btn-product btn-login" />
 
-{{ form.errors | default_errors }}
+			{% endform %}
+		</div>
 
-<label for="customer_email">Email Address</label>
-<input type="email" name="email" />
+		<div class="forgot">
+			<h2>Forgot Password?</h2>
+			{% form 'recover_customer_password' %}
 
-<input type="submit" value="Submit" />
+			{{ form.errors | default_errors }}
 
-{% endform %}
+			<label for="customer_email">Email Address</label>
+			<input type="email" name="email" />
+
+			<input type="submit" value="Submit" class="btn-product btn-login" />
+
+			{% endform %}
+		</div>
+	</div>
+</div>
+<div class="register">
+	<h2>Sign Up!</h2>
+
+	{% form 'create_customer' %}
+
+	{{ form.errors | default_errors }}
+
+	<label for="first_name">First Name</label>
+	<input type="text" value="" name="customer[first_name]" size="30" />
+
+	<label for="last_name">Last Name</label>
+	<input type="text" value="" name="customer[last_name]" size="30" />
+
+	<label for="email">Email Address</label>
+	<input type="email" value="" name="customer[email]" size="30" />
+
+	<label for="password">Password</label>
+	<input type="password" value="" name="customer[password]" size="30" />
+
+	<input type="submit" value="Create" class="btn-product btn-login" />
+
+	{% endform %}
+</div>
