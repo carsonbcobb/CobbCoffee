@@ -169,6 +169,8 @@
 			
 			{% endfor %}
 			<p class="subproduct__price">{{ product.price | money }}</p>
+			{% if available and compare_at_price > price %}<p class="subproduct__price sale">{% product.compare_at_price %}</p>  {% endif %}
+
 
 	</a>
 	{% endfor %}
